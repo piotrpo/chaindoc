@@ -26,7 +26,7 @@ class Block<T : TransactionalPayload> {
     }
 
     private fun followRules(transaction: Transaction<T>): Boolean {
-        return rules.filter { !it.validate(this, transaction) }.isEmpty()
+        return rules.none { !it.validate(this, transaction) }
     }
 
     private fun canBeAttachedToTheEnd(transaction: Transaction<T>) =
