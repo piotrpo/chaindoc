@@ -8,9 +8,9 @@ internal class BlockTest {
     @Test
     fun addBlockToChain() {
 
-        val block = Block()
+        val block = Block<TransactionalPayload>()
         val lastHash = block.lastHash
-        val payload = TransactionPayload("some payload")
+        val payload = StringPayload("some payload")
 
         val transaction = Transaction(lastHash, payload)
         block.addTransaction(transaction)
@@ -20,9 +20,9 @@ internal class BlockTest {
 
     @Test
     fun rejectWrongHash() {
-        val block = Block()
+        val block = Block<TransactionalPayload>()
         val lastHash = block.lastHash
-        val payload = TransactionPayload("some payload")
+        val payload = StringPayload("some payload")
 
         val firstTransaction = Transaction(lastHash, payload)
         val corruptedTransaction = Transaction(Hash("corrupted".toByteArray()), payload)
@@ -35,8 +35,8 @@ internal class BlockTest {
 
     @Test
     fun addValidBlocks() {
-        val block = Block()
-        val payload = TransactionPayload("some payload")
+        val block = Block<TransactionalPayload>()
+        val payload = StringPayload("some payload")
 
         (1..4).forEach { _ ->
             val transaction = Transaction(block.lastHash, payload)
@@ -47,8 +47,8 @@ internal class BlockTest {
 
     @Test
     fun cacheInvalidBlockUntilItsValid() {
-        val block = Block()
-        val payload = TransactionPayload("Payload")
+        val block = Block<TransactionalPayload>()
+        val payload = StringPayload("Payload")
         val firstTransaction = Transaction(block.lastHash, payload)
         val lazyTransaction = Transaction(firstTransaction.hash, payload)
         val lastTransaction = Transaction(lazyTransaction.hash, payload)

@@ -3,7 +3,7 @@ package pl.com.digita.docblock.block
 import java.security.MessageDigest
 
 
-class Transaction(val previousHash: Hash, val payload: TransactionPayload) {
+class Transaction<out T : TransactionalPayload>(val previousHash: Hash, val payload: T) {
 
     val hash: Hash
         get() {
