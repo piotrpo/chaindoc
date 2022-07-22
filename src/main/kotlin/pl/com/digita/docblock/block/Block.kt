@@ -2,8 +2,8 @@ package pl.com.digita.docblock.block
 
 class Block<T : TransactionalPayload> {
 
-    private val rules = mutableListOf<Rule<T>>()
-    val chain = mutableListOf<Transaction<T>>()
+    private val rules = mutableSetOf<Rule<T>>()
+    val chain = mutableSetOf<Transaction<T>>()
     private val rejected = mutableMapOf<Hash, Transaction<T>>()
     val length: Int
         get() {
